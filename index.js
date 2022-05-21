@@ -5,6 +5,10 @@ const port = 8000;
 //use express roter
 app.use('/', require('./routes'));
 
+//set up the view engine
+app.set('view engine', 'ejs');
+app.set('view', './views');
+
 app.listen(port, function(err){
     if (err) {
         console.log(`Error in running port: ${err}`);       
