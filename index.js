@@ -4,7 +4,9 @@ const port = 8000;
 
 //use express roter
 app.use('/', require('./routes'));
-
+//Use body-parser
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: false}));
 //set up the view engine
 app.set('view engine', 'ejs');
 app.set('views', './views');
