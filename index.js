@@ -6,12 +6,19 @@ const port = 8000;
 app.use('/', require('./routes'));
 //Use body-parser
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded());
+
 //set up the view engine
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+//static files assces
 app.use(express.static('assets'));
+
+//Getting data from user to server
+app.post('/create-task', function(req, res) {
+    console.log(req.body);
+})
 
 app.listen(port, function(err){
     if (err) {
