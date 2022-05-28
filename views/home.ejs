@@ -16,16 +16,15 @@
 
     <div class="card w-50 m-auto mt-3 shadow" style="width: 18rem;">
         <div class="header">
-            <div class="text position-absolute bottom-0 fs-2 p-3">
+            <div class="text position-absolute bottom-0 fs-2 p-3 text-white">
                 <p id="date"></p>
             </div>
         </div>
         <div class="card-body">
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.
-            </p>
+            <!-- <p class="card-text">Tasks 
+            </p> -->
 
-            <div class="list_items">
+            <div class="list-items">
                 <form action="/delete-task" method="post">
                     <ul class="list-group">
                         <% for (let i of task_list) { %>
@@ -49,19 +48,19 @@
                                     </div>
 
 
-                                    <div class="px-3 py-1 bg-info text-dark category-conatiner">
-                                        <span class="badge text-bg-info">
+                                    <div class="px-3 py-1 text-dark category s w">
+                                        <span class="badge">
                                             <%= i.category %>
                                         </span>
                                     </div>
                                 </div>
                             </li>
-                            <% } %>
+                        <% } %>
                     </ul>
             </div>
 
             <footer class="d-flex justify-content-evenly">
-                
+
                 <!-- Delete botton -->
                 <div class="delete-btn">
                     <button type="submit" class="btn btn-danger mt-3"><i class="fa-solid fa-trash"></i>
@@ -107,7 +106,7 @@
                                                 <div class="form-floating">
                                                     <select class="form-select" id="floatingSelectGrid" name="category"
                                                         required>
-                                                        <option selected>Choose a category</option>
+                                                        <option value="0" selected>Choose a category</option>
                                                         <option value="School">School</option>
                                                         <option value="Work">Work</option>
                                                         <!-- <option value="3">Three</option> -->

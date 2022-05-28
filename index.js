@@ -61,7 +61,7 @@ app.post('/create-task', function (req, res) {
 
 app.post('/delete-task', function (req, res) {
     let id = req.body;
-    console.log(req.body);
+    // console.log(req.body);
 
     //find the contact in the database and delete.
     for (let i of Object.keys(id)) {
