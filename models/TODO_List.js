@@ -10,8 +10,11 @@ const taskList = new mongoose.Schema({
         required: true
     },
     dueDate: {
-        type: String,
+        type: Date,
         required: true
+    },
+    taskDone: {
+        type: Boolean
     }
 });
 

@@ -26,97 +26,124 @@
             </p>
 
             <div class="list_items">
-                <ul class="list-group">
-                    <li class="list-group-item d-flex align-items-center fs-5">
-                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                        <div class="task-conatiner container-md d-flex align-items-center">
-                            <div class="task-details container-md">
-                                <p class="task m-0 text-start fs-5 fw-semibold">Go to Gym!</p>
-                                <p class="due-date m-0 text-start fs-6">
-                                    <i class="fa-solid fa-calendar-days"></i>
-                                    <span class="due-date">May, 26 2022</span>
-                                </p>
-                            </div>
+                <form action="/delete-task" method="post">
+                    <ul class="list-group">
+                        <% for (let i of task_list) { %>
+                            <li class="list-group-item d-flex align-items-center fs-5">
+
+                                <input class="form-check-input me-1" type="checkbox" name="<%= i._id %>"
+                                    aria-label="...">
+
+                                <div class="task-conatiner container-md d-flex align-items-center">
+                                    <div class="task-details container-md">
+                                        <p class="task m-0 text-start fs-5 fw-semibold">
+                                            <%= i.task %>
+                                        </p>
+                                        <p class="due-date m-0 text-start fs-6">
+                                            <i class="fa-solid fa-calendar-days"></i>
+                                            <span class="due-date">
+                                                <%= i.dueDate.toLocaleDateString('en-US', {year: 'numeric' ,
+                                                    month: 'short' , day: '2-digit' }); %>
+                                            </span>
+                                        </p>
+                                    </div>
 
 
-                            <div class="px-3 py-1 bg-info text-dark category-conatiner">
-                                <span class="badge text-bg-info">School</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                                    <div class="px-3 py-1 bg-info text-dark category-conatiner">
+                                        <span class="badge text-bg-info">
+                                            <%= i.category %>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+                            <% } %>
+                    </ul>
             </div>
 
-            <!-- Modal  -->
-            <div id="modal">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary mt-2 text-uppercase" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop">
-                    <i class="fa-solid fa-plus"></i> Add Task.
-                </button>
+            <footer class="d-flex justify-content-evenly">
+                
+                <!-- Delete botton -->
+                <div class="delete-btn">
+                    <button type="submit" class="btn btn-danger mt-3"><i class="fa-solid fa-trash"></i>
+                        Delete</button>
+                    </form>
+                </div>
 
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Add Tasks.</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                <!-- Modal  -->
+                <div id="modal">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary mt-3 text-uppercase" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">
+                        <i class="fa-solid fa-plus"></i> Add Task.
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Add Tasks.</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+
+                                <!-- Form to add task -->
+                                <form action="/create-task" method="post">
+                                    <div class="modal-body">
+
+                                        <!-- Input to add task. -->
+                                        <div class="form-floating mb-2">
+                                            <textarea class="form-control" placeholder="What do you need you to do."
+                                                id="task" name="task" required></textarea>
+                                            <label for="floatingTextarea">DISCRIPTION ABOUT TASK</label>
+                                        </div>
+
+                                        <!--drop down button fors date and category -->
+                                        <div class="row g-2">
+
+                                            <!-- drop down button for date -->
+                                            <div class="col-md">
+                                                <div class="form-floating">
+                                                    <select class="form-select" id="floatingSelectGrid" name="category"
+                                                        required>
+                                                        <option selected>Choose a category</option>
+                                                        <option value="School">School</option>
+                                                        <option value="Work">Work</option>
+                                                        <!-- <option value="3">Three</option> -->
+                                                    </select>
+                                                    <label for="floatingSelectGrid">CATEGORY</label>
+                                                </div>
+                                            </div>
+
+                                            <!-- form for date -->
+                                            <div class="col-md">
+                                                <div class="form-floating">
+                                                    <input type="date" class="form-control" id="dueDate" name="dueDate"
+                                                        required>
+                                                    <label for="floatingInputGrid">Due Date</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- modal footer submit and close btn -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Add Task</button>
+                                    </div>
+                                </form>
                             </div>
-
-                            <!-- Form to add task -->
-                            <form action="/create-task" method="post">
-                                <div class="modal-body">
-
-                                    <!-- Input to add task. -->
-                                    <div class="form-floating mb-2">
-                                        <textarea class="form-control" placeholder="What do you need you to do."
-                                            id="task" name="task" required></textarea>
-                                        <label for="floatingTextarea">DISCRIPTION ABOUT TASK</label>
-                                    </div>
-
-                                    <!--drop down button fors date and category -->
-                                    <div class="row g-2">
-
-                                        <!-- drop down button for date -->
-                                        <div class="col-md">
-                                            <div class="form-floating">
-                                                <select class="form-select" id="floatingSelectGrid" name="category" required>
-                                                    <option selected>Choose a category</option>
-                                                    <option value="School">School</option>
-                                                    <option value="Work">Work</option>
-                                                    <!-- <option value="3">Three</option> -->
-                                                </select>
-                                                <label for="floatingSelectGrid">CATEGORY</label>
-                                            </div>
-                                        </div>
-
-                                        <!-- form for date -->
-                                        <div class="col-md">
-                                            <div class="form-floating">
-                                                <input type="date" class="form-control" id="dueDate" name="dueDate" required>
-                                                <label for="floatingInputGrid">Due Date</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <!-- modal footer submit and close btn -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Add Task</button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
 
         </div>
+        </footer>
+
+    </div>
     </div>
 
     <!-- JavaScript Bundle with Popper -->
